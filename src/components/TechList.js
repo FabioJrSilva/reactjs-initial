@@ -3,6 +3,10 @@ import React, { Component } from 'react';
 import TechItem from './TechItem';
 
 class TechList extends Component {
+  static defaultProps = {
+    tech: 'Static'
+  };
+
   state = {
     newTech: '',
     techs: ['Nodejs', 'ReactJS', 'React Native']
@@ -33,6 +37,8 @@ class TechList extends Component {
           {this.state.techs.map((tech) => (
             <TechItem key={tech} tech={tech} onDelete={() => this.handleDelete(tech)} />
           ))}
+          <li>{TechList.defaultProps.tech}</li>
+          <TechItem />
         </ul>
         <div>
           <input type="text" onChange={this.handleInputChange} value={this.state.newTech} />
