@@ -1,12 +1,13 @@
 import React from 'react';
 import './App.css';
 import img from './assets/DEV.jpg';
+import TechList from './components/TechList';
 
 function App() {
   return (
     <>
-      <h1>Hello World</h1>
-      <img src={img} />
+      <img src={img} width="150" />
+      <TechList />
     </>
   );
 }
