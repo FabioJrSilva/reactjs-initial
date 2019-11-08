@@ -3,14 +3,31 @@ import React, { Component } from 'react';
 import TechItem from './TechItem';
 
 class TechList extends Component {
-  static defaultProps = {
-    tech: 'Static'
-  };
-
   state = {
     newTech: '',
-    techs: ['Nodejs', 'ReactJS', 'React Native']
+    techs: []
   };
+
+  // Executado assim que o componente aparece na tela
+  componentDidMount() {
+    const techs = localStorage.getItem('techs');
+
+    if (techs) {
+      this.setState({ techs: JSON.parse(techs) });
+    }
+  }
+
+  // Executado sempre que houver alteração nas props ou estado
+  componentDidUpdate(_, prevState) {
+    if (prevState.techs !== this.state.techs) {
+      localStorage.setItem('techs', JSON.stringify(this.state.techs));
+    }
+  }
+
+  // Executado sempre que um componente deixa de existir
+  componentWillUnmount() {
+    //
+  }
 
   handleInputChange = (event) => {
     this.setState({ newTech: event.target.value });
@@ -37,8 +54,6 @@ class TechList extends Component {
           {this.state.techs.map((tech) => (
             <TechItem key={tech} tech={tech} onDelete={() => this.handleDelete(tech)} />
           ))}
-          <li>{TechList.defaultProps.tech}</li>
-          <TechItem />
         </ul>
         <div>
           <input type="text" onChange={this.handleInputChange} value={this.state.newTech} />
